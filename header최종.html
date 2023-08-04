@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.google apis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        :root {
+            --mainColor1: #2B5D97;
+            --mainColor2: #02A1BD;
+            --mainColor3: #4AD3E1;
+            --subColor1: #EFC483;
+            --subColor2: #EFDB9A;
+        }
+        
+        /* 웹 전체 페이지를 초기 세팅해주는 구문 */
+        body, ul, li, a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            font-family: 'DM Serif Display', serif;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 글로벌 메뉴바 시작 */
+        header{
+            background: rgba(255, 255, 255, 0.6);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1;
+            /* border-radius: 0 0 40px 40px; */
+            box-shadow: 0 10px 40px rgba(159, 162, 177, .8);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+        }
+        .navbar .logo {
+            color: var(--mainColor1);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex; /* 메뉴리스트는 가로로 배치되도록! */
+        }
+        .navbar li {
+            padding: 10px; /* 메뉴 항목 내부 영역 공간 생성해주기 */
+        }
+        .navbar ul a {
+            display: inline-block;
+            color: var(--mainColor1);
+            font-size: 20px;
+            padding: 0 20px;
+        }
+        .navbar ul a:hover{
+            color: var(--mainColor3);
+            transition: .5s;
+        }
+        .main-nav ul a.active{
+            opacity: 1;
+            color: var(--subColor1);
+            transition: .5s;
+        }
+
+        /* underline */
+        #horizontal-underline{
+            position: absolute;
+            width: 0;
+            background-color: var(--mainColor1);
+            border-radius: 3px;
+            top: 0;
+            left: 0;
+            height: 4px;
+            transition: .5s;
+        }
+
+        /* 햄버거메뉴 */
+        .menu-toggle {
+            display: none; /* 모바일 메뉴 버튼 일단 숨겨놓기! */
+            position: absolute;
+            cursor: pointer;
+            top: 30px;
+            right: 10px;
+            color: white;
+            padding: .5rem;
+            transform: translate(-50%, -50%);
+        }
+        .menu-toggle span {
+            display: block;
+            background: var(--mainColor1);
+            width: 42px;
+            height: 4px;
+            border-radius: 3px;
+            transition: 0.25s margin 0.25s, 0.25s transform;
+        }
+        .menu-toggle span:nth-child(1) {
+            margin-bottom: 8px;
+        }
+        .menu-toggle span:nth-child(3) {
+            margin-top: 8px;
+        }
+        .menu-toggle.active span {
+            transition: 0.25s margin, 0.25s transform 0.25s;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            margin-top: 8px;
+            margin-bottom: -4px;
+            transform: rotate(45deg);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        .menu-toggle.active span:nth-child(3) {
+            margin-top: -4px;
+            transform: rotate(135deg);
+        }
+
+        /* 모바일 메뉴 스타일 시작!*/
+        @media only screen and (max-width: 720px) {
+            .navbar ul {
+                display: none; /* 기본 상태에서는 메뉴를 숨기고 있다. */
+                flex-direction: column; /* 가로로 되어 있던 메뉴 방향을 다시 세로로 떨궈준다. */
+                position: fixed; /* 고정 위치- 탑 */
+                width: 100%;
+                top: 107px; /* 상단 로고와 메뉴 아이콘이 보이도록 메뉴 시작라인을 좀 아래로 떨어뜨려서 시작해줌 */
+                background: rgba(255, 255, 255, 0.6);
+                -webkit-backdrop-filter: blur(5px);
+                backdrop-filter: blur(5px);  
+                align-items: center;
+                line-height: 1.6;
+                padding: 20px 0;
+            }
+            .navbar.scale-up-hor-right {
+                -webkit-animation: scale-up-hor-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                animation: scale-up-hor-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            }
+            .navbar.mobile-nav ul {
+                display: flex; /* 메뉴를 표시해주기! */
+            }
+            .menu-toggle {
+                display: block; /* 모바일 메뉴 버튼 표시 */
+                cursor: pointer; /* 마우스 커서 포인터 */
+                margin-top: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">SUMMER FESTIVAL</a>
+            <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Speakers</a></li>
+                <li><a href="#">Ticket</a></li>
+                <div id="horizontal-underline"></div>
+            </ul>
+        </div>
+    </header>
+    
+
+    <script>
+        // underline
+        let horizontalBar = document.getElementById("horizontal-underline");
+        let horizontalMenus = document.querySelectorAll(".navbar ul a");
+        function horizontalIndicator(e) {
+        horizontalBar.style.left = e.offsetLeft + "px";
+        horizontalBar.style.width = e.offsetWidth + "px";
+        horizontalBar.style.top = e.offsetTop + e.offsetHeight + "px";
+        }
+
+        horizontalMenus.forEach((menu) =>
+        menu.addEventListener("click", (e) =>
+            horizontalIndicator(e.currentTarget)
+        )
+        );
+
+        // 햄버거메뉴
+        document.getElementById("mobile-menu").addEventListener("click", function() {
+            document.querySelector(".menu-toggle").classList.toggle("active");
+            document.querySelector(".navbar").classList.toggle("mobile-nav");
+        });
+    </script>
+</body>
+</html>
